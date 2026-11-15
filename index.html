@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo de Jogos</title>
+<meta name="description" content="Catálogo de jogos com gêneros, plataformas e ranking de notas.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="css/style.css?v=4" rel="stylesheet">
+<style>
+/* Setas e barrinhas do carousel em branco (força total) */
+html #destaques .carousel-indicators{z-index:5;margin-bottom:.8rem}
+html #destaques .carousel-indicators [data-bs-target]{background-color:#fff!important;opacity:.4!important;height:5px!important;width:36px!important;border:0!important;margin:0 4px!important}
+html #destaques .carousel-indicators .active{opacity:1!important}
+html #destaques .carousel-control-prev-icon,html #destaques .carousel-control-next-icon{filter:none!important;background-color:rgba(21,18,46,.8)!important;border-radius:50%!important;background-size:55%!important;background-repeat:no-repeat!important;background-position:center!important;width:2.6rem!important;height:2.6rem!important}
+html #destaques .carousel-control-prev-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e")!important}
+html #destaques .carousel-control-next-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e")!important}
+html #destaques .carousel-control-prev:hover .carousel-control-prev-icon,html #destaques .carousel-control-next:hover .carousel-control-next-icon{background-color:#ff4d8d!important}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#inicio">Catálogo de Jogos</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#inicio">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="#catalogo">Catálogo</a></li>
+        <li class="nav-item"><a class="nav-link" href="#generos">Gêneros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#plataformas">Plataformas</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ranking">Ranking</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header id="inicio" class="hero d-flex align-items-center">
+  <div class="container">
+    <h1>Qual é o<br>próximo jogo?</h1>
+    <p class="lead col-lg-6 mt-3">Um catálogo com jogos de ação, RPG, aventura, esporte, corrida e estratégia. Filtre por gênero, plataforma e modo multiplayer.</p>
+    <div class="d-flex flex-wrap gap-4 mt-4" id="numeros"></div>
+    <a href="#catalogo" class="btn btn-rosa btn-lg mt-4">Ver catálogo</a>
+  </div>
+</header>
+
+<main>
+<section class="secao pb-0">
+  <div class="container">
+    <h2>Os mais bem avaliados</h2>
+    <div id="destaques" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+      <div class="carousel-indicators" id="car-ind"></div>
+      <div class="carousel-inner" id="car-itens"></div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#destaques" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Anterior</span></button>
+      <button class="carousel-control-next" type="button" data-bs-target="#destaques" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Próximo</span></button>
+    </div>
+  </div>
+</section>
+
+<section id="catalogo" class="secao">
+  <div class="container">
+    <h2>Catálogo</h2>
+    <p class="col-lg-8">Escolha um gênero, uma plataforma ou mostre só os jogos com modo multiplayer.</p>
+    <div class="row g-3 align-items-end mb-4">
+      <div class="col-md-4"><label class="form-label" for="f-genero">Gênero</label><select id="f-genero" class="form-select"></select></div>
+      <div class="col-md-4"><label class="form-label" for="f-plat">Plataforma</label><select id="f-plat" class="form-select"></select></div>
+      <div class="col-md-4"><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="f-multi"><label class="form-check-label" for="f-multi">Apenas multiplayer</label></div></div>
+    </div>
+    <p id="contagem" class="fw-semibold" role="status"></p>
+    <div class="row g-4" id="lista"></div>
+  </div>
+</section>
+
+<section id="generos" class="secao alt">
+  <div class="container">
+    <h2>Gêneros</h2>
+    <p class="col-lg-8 mb-4">Abra um gênero para ver a descrição e os jogos do catálogo que pertencem a ele.</p>
+    <div class="accordion" id="acc-generos"></div>
+  </div>
+</section>
+
+<section id="plataformas" class="secao">
+  <div class="container">
+    <h2>Plataformas</h2>
+    <p class="col-lg-8">Cada plataforma mostra o fabricante, quantos jogos tem no catálogo e o preço médio deles.</p>
+    <div class="row g-4" id="plataformas-lista"></div>
+  </div>
+</section>
+
+<section id="ranking" class="secao alt">
+  <div class="container">
+    <h2>Ranking por nota</h2>
+    <p class="col-lg-8">Todos os jogos ordenados da maior para a menor nota.</p>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead><tr><th>#</th><th>Título</th><th>Desenvolvedora</th><th>Ano</th><th class="text-end">Nota</th></tr></thead>
+        <tbody id="tabela"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- Janela de detalhes do jogo -->
+<div class="modal fade" id="modalJogo" tabindex="-1" aria-labelledby="modalTitulo" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title h4" id="modalTitulo">Jogo</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body p-0" id="modal-corpo"></div>
+      <div class="modal-footer"><button type="button" class="btn btn-rosa" data-bs-dismiss="modal">Fechar</button></div>
+    </div>
+  </div>
+</div>
+
+<footer class="rodape text-center py-4"><p class="mb-0">Atividade Integradora — Front-End · FAQI · 2026 · v4</p></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/dados.js?v=4"></script>
+<script src="js/script.js?v=4"></script>
+</body>
+</html>
